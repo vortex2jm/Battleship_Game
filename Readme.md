@@ -8,14 +8,7 @@
 
    Ex:
 
- *"principal directory"*
- .
- .   *"<chosen name>"*
- .   .
- .   .      *"saida"*
- .   .
- .   *"battleship.c"*
- .   *"prog"*
+    /home/joao/Downloads/Captura de tela de 2022-03-30 18-08-42.png
 
 
  - Third step: Now you have to execute the program. The command is *"./prog <chosen name>"*
