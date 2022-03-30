@@ -8,16 +8,6 @@
 
    Ex:
 
- *"principal directory"*.
- ._
- .   *"(chosen name)"*.
- ._  .
- .   .      *"saida"*.
- ._   .
- .   *"battleship.c"*.
- .   *"prog"*.
-
-
  - Third step: Now you have to execute the program. The command is *"./prog (chosen name)"*
 
  - Fourth step: If you followed all steps correctly, the game will be running on your linux command line.
