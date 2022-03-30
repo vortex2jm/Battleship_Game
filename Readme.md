@@ -17,6 +17,10 @@
 
  - Fifth step: To play the game you have to enter player1 and player2 names and then, start to choose board positions. First character is a letter and second is a number. Letters can be from *A* to *J* and numbers can be from *1* to *10*. Example: *b8* is a play.
 
+   Ex:
+   
+   ![GAME](https://user-images.githubusercontent.com/93965248/160934054-aa4f4f70-8eb0-4b20-a512-127610f7e8ed.png)
+
 
 #### Comments
 
