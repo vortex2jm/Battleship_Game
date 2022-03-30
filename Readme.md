@@ -11,7 +11,7 @@
     ![IMAGEMDIR](https://user-images.githubusercontent.com/93965248/160933217-c226c88c-b266-496e-9e76-1880477cc38b.png)
 
 
- - Third step: Now you have to execute the program. The command is *"./prog {chosen name}"*
+ - Third step: Now you have to execute the program. The command is *"./prog {chosen name}"*. In this case, command will be *"./prog game"*.
 
  - Fourth step: If you followed all steps correctly, the game will be running on your linux command line.
 
