@@ -9,11 +9,11 @@
    Ex:
 
  *"principal directory"*.
- .
+ ._
  .   *"<chosen name>"*.
- .   .
+ ._  .
  .   .      *"saida"*.
- .   .
+ ._   .
  .   *"battleship.c"*.
  .   *"prog"*.
 
