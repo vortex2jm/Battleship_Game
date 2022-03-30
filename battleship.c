@@ -9,7 +9,7 @@
 typedef struct{
 	
 	int coluna;
-	int linha;            //valor numerico da coordenada alfabética pós-convertida//
+	int linha;            //valor numerico da coordenada alfabï¿½tica pï¿½s-convertida//
 	char letra;			
 	int confirmaLeitura;	
 	char strCord[10];		//string com a coordenada completa//
@@ -36,7 +36,7 @@ typedef struct{
 	int ID;
 	tCoordenada coordenada;		//Coordenada do primeiro ponto do navio//
 	int tamanho;
-	int confirmaLeitura;   //variável para verificar se as informações do navio foram lidas da maneira esperada//
+	int confirmaLeitura;   //variï¿½vel para verificar se as informaï¿½ï¿½es do navio foram lidas da maneira esperada//
 	
 }tNavio;
 
@@ -66,7 +66,7 @@ typedef struct{
 	
 	int qtdNaviosTotal;
 	tNavio navio[100];				//navios presetes no tabuleiro//
-	char campoDeBatalha[10][10];     // Tabuleiro "físico"//
+	char campoDeBatalha[10][10];     // Tabuleiro "fï¿½sico"//
 	
 }tTabuleiro;
 
@@ -88,7 +88,7 @@ tTabuleiro AdicionaNaviosNoTabuleiro(tTabuleiro tabuleiro);
 void ImprimeTabuleiroNoArquivo(tTabuleiro tabuleiro, FILE * file);
 void ImprimeTabladoSaida(char tablado[10][10], char nome1 [], char nome2[]);
 void ImprimeTabladoAuxiliar(int tablado[10][10]);
-void GeraTabuleiroAleatorio(char ** argv);
+void GeraTabuleiroAleatorio(char * name);
 void CriaArquivoDeInicializacao(FILE * file, tTabuleiro tab1, tTabuleiro tab2, char nome1[], char nome2[]);
 
 
@@ -99,7 +99,7 @@ typedef struct{
 	char navioAcertado[12];		//nome do navio que foi atingido
 	int idNavioAcertado;		//id do navio
 	tCoordenada coordenada;		
-	int confirmaLeitura;		//confirmação de leitura da jogada//
+	int confirmaLeitura;		//confirmaï¿½ï¿½o de leitura da jogada//
 	int numJogada;				//numero da jogada a partir do 1//
 	
 }tJogada;
@@ -126,7 +126,7 @@ int JogadasPossuemOMesmoNavio(tJogada jogada1, tJogada jogada2);
 
 typedef struct{
 	
-	int tirosErrados;		//tiros na água//
+	int tirosErrados;		//tiros na ï¿½gua//
 	int tirosCertos;		//tiros em navios//
 	float linhaMedia;		//linha media de acertos//
 	float colunaMedia;		//coluna media de acertos//
@@ -169,63 +169,52 @@ void JogaJogo(tJogo jogo, char** argv);
 int EhParaGerarTabuleiro(char * vet, char ** argv);
 
 
-//____________________________________________________________________________FUNÇÃO_PRINCIPAL____________________________________________________________________________________//
+//____________________________________________________________________________FUNï¿½ï¿½O_PRINCIPAL____________________________________________________________________________________//
 
 
 int main(int argc, char ** argv){
 	
 	tJogo jogo;
-	char entrada[1000];
 	
-	
-	if(EhParaGerarTabuleiro(entrada,argv)){		//VERIFICA SE FOI DIGITADO O "-gt" NA LINHA DE COMANDO//
-		
-		GeraTabuleiroAleatorio(argv);	//SE FOI, GERA TABULEIRO ALEATORIO//
-	}
-	
-	else{		//SENAO, COMECA O JOGO//
-		
 		jogo = InicializaJogo(argc, argv);	//INICIALIZA OS JOGOS VERIFICANDO OS TABULEIROS E GERANDO ARQUIVO DE INICIALIZACAO//
 		if(!EhJogoValido(jogo)) return 1;	//SE OS TABULEIROS NAO FOREM VALIDOS E COMPATIVEIS O PROG FECHA//
-		JogaJogo(jogo, argv);				//CASO, CONTRÁRIO, O PROG RODA O JOGO//
-	}
-	
+		JogaJogo(jogo, argv);				//CASO, CONTRï¿½RIO, O PROG RODA O JOGO//
 	
 	return 0;
 }
 
 
-//_________________________________________________________________________DESENVOLVIMENTO_DAS_FUNÇÕES____________________________________________________________________________//
+//_________________________________________________________________________DESENVOLVIMENTO_DAS_FUNï¿½ï¿½ES____________________________________________________________________________//
 
 
-//Função para ler um navio do arquivo tabu.txt, ou seja, uma linha//
+//Funï¿½ï¿½o para ler um navio do arquivo tabu.txt, ou seja, uma linha//
 tNavio LeNavios(FILE * file){          
 	
 	tNavio navio;											  //			
 	tCoordenada coordenada;									  //
-	char nome[11], str[20];									  // VARIÁVEIS PARA ATRIBUIR OS VALORES CONTIDOS EM UMA LINHA DO ARQUIVO//
+	char nome[11], str[20];									  // VARIï¿½VEIS PARA ATRIBUIR OS VALORES CONTIDOS EM UMA LINHA DO ARQUIVO//
 	int id=0, orientacao=-1, tamanho =0, rtn=0;               //
 	
 	
-	navio.confirmaLeitura = 1;     //CONFIRMAÇÃO DE LEITURA DO ARQUIVO COMEÇA SETADA EM 1//
+	navio.confirmaLeitura = 1;     //CONFIRMAï¿½ï¿½O DE LEITURA DO ARQUIVO COMEï¿½A SETADA EM 1//
 		
 		
 	fscanf(file,"%[^\n]\n", str);	 //LE UMA LINHA DO ARQUIVO E JOGA NA STRING INFORMADA//	
-	rtn = sscanf(str,"%[^;];%d;%d;%c%d%*[^\n]\n", nome, &id, &orientacao, &coordenada.letra, &coordenada.coluna );    //LE O CONTEÚDO DA STRING E ATRIBUI ÀS VARIÁVEIS INFORMADAS//
+	rtn = sscanf(str,"%[^;];%d;%d;%c%d%*[^\n]\n", nome, &id, &orientacao, &coordenada.letra, &coordenada.coluna );    //LE O CONTEï¿½DO DA STRING E ATRIBUI ï¿½S VARIï¿½VEIS INFORMADAS//
 		
-	tamanho = CalculaTamanhoDoNavio(nome);  //CALCULA O TAMANHO DO NAVIO E JOGA NA VARIÁVEL//
+	tamanho = CalculaTamanhoDoNavio(nome);  //CALCULA O TAMANHO DO NAVIO E JOGA NA VARIï¿½VEL//
 	
 	if(!EhNomeValido(nome)) navio.confirmaLeitura = 0;					//
 	if(!EhOrientacaoValida(orientacao)) navio.confirmaLeitura = 0;		//
-	if(!EhCoordenadaValida(coordenada)) navio.confirmaLeitura = 0;		// VERIFICA SE AS INFORMAÇÕES CONTIDAS NO ARQUIVO SÃO VÁLIDAS//
+	if(!EhCoordenadaValida(coordenada)) navio.confirmaLeitura = 0;		// VERIFICA SE AS INFORMAï¿½ï¿½ES CONTIDAS NO ARQUIVO Sï¿½O Vï¿½LIDAS//
 	if(rtn < 5) navio.confirmaLeitura = 0;								//
 	
 	
-	coordenada.linha = LeCoordenadaAlfabetica(coordenada.letra);             //Le um caracter de 'a' a 'j' e joga o inteiro correspondente a ele (de acordo com o tabuleiro) em uma variável//
+	coordenada.linha = LeCoordenadaAlfabetica(coordenada.letra);             //Le um caracter de 'a' a 'j' e joga o inteiro correspondente a ele (de acordo com o tabuleiro) em uma variï¿½vel//
 	
 	strcpy(navio.nome, nome);			//
 	navio.ID = id;						//
-	navio.orientacao = orientacao;		// ARMAZENA AS INFORMAÇÕES DO NAVIO NO TIPO TNAVIO//
+	navio.orientacao = orientacao;		// ARMAZENA AS INFORMAï¿½ï¿½ES DO NAVIO NO TIPO TNAVIO//
 	navio.coordenada = coordenada;		//
 	navio.tamanho = tamanho;			//
 
@@ -235,14 +224,14 @@ tNavio LeNavios(FILE * file){
 }
 
 
-//Função para ler o arquivo tabu.txt todo, ou seja, todas as linhas// 
+//Funï¿½ï¿½o para ler o arquivo tabu.txt todo, ou seja, todas as linhas// 
 tTabuleiro LeTabuleiro(FILE * file){
 	
 	tTabuleiro tabuleiro;
 	tNavio navio;							
 	int x=0;
 	
-	while(!feof(file)){								//ENQUANTO NÃO FOR O FINAL DO ARQUIVO, O PROGRAMA CONTINUA LENDO OS NAVIOS E ARMAZENA NO TIPO TTABULEIRO//
+	while(!feof(file)){								//ENQUANTO Nï¿½O FOR O FINAL DO ARQUIVO, O PROGRAMA CONTINUA LENDO OS NAVIOS E ARMAZENA NO TIPO TTABULEIRO//
 		
 		tabuleiro.navio[x] = LeNavios(file);
 		x++;
@@ -255,17 +244,17 @@ tTabuleiro LeTabuleiro(FILE * file){
 }
 
 
-//Função para verificar se o tabuleiro é válido//
+//Funï¿½ï¿½o para verificar se o tabuleiro ï¿½ vï¿½lido//
 int EhTabuleiroValido(tTabuleiro tabuleiro){
 	
 	tCoordenada coordenada;
 	int x=0;
 	
-	if(tabuleiro.qtdNaviosTotal == 0) return 0;						//CASO NÃO HAJA NAVIOS NO ARQUIVO//	  
+	if(tabuleiro.qtdNaviosTotal == 0) return 0;						//CASO Nï¿½O HAJA NAVIOS NO ARQUIVO//	  
 	
 	for(x=0;x<tabuleiro.qtdNaviosTotal;x++){
 			
-		if(!FoiNavioLidoComSucesso(tabuleiro.navio[x])) return 0;  		//VERIFICA A VARIÁVEL QUE CRIEI PARA CONFIRMAR A LEITURA DOS COMPONENTES//     
+		if(!FoiNavioLidoComSucesso(tabuleiro.navio[x])) return 0;  		//VERIFICA A VARIï¿½VEL QUE CRIEI PARA CONFIRMAR A LEITURA DOS COMPONENTES//     
 	}
 	
 	if(NaviosEstaoEncostadosOuSobrepostos(tabuleiro)) return 0;		//CASO OS NAVIOS ESTEJAM ENCOSTADOS OU UM SOBRE O OUTRO//
@@ -274,14 +263,14 @@ int EhTabuleiroValido(tTabuleiro tabuleiro){
 }
 
 
-//Função para verificar se o navio foi lido sem erro//
+//Funï¿½ï¿½o para verificar se o navio foi lido sem erro//
 int FoiNavioLidoComSucesso(tNavio navio){
 	
 	return navio.confirmaLeitura;
 }
 
 
-//Função para verificar se o nome do navio é válido//
+//Funï¿½ï¿½o para verificar se o nome do navio ï¿½ vï¿½lido//
 int EhNomeValido(char nome[]){
 	
 	if(strcmp(nome, "Carrier")==0) return 1;
@@ -294,7 +283,7 @@ int EhNomeValido(char nome[]){
 }
 
 
-// Função para verificar se foi fornecida uma das orientações esperadas//
+// Funï¿½ï¿½o para verificar se foi fornecida uma das orientaï¿½ï¿½es esperadas//
 int EhOrientacaoValida(int ori){
 	
 	if(ori == 0 || ori == 1) return 1;
@@ -302,7 +291,7 @@ int EhOrientacaoValida(int ori){
 }
 
 
-// Função para verificar se é uma coordenada válida no tabuleiro//
+// Funï¿½ï¿½o para verificar se ï¿½ uma coordenada vï¿½lida no tabuleiro//
 int EhCoordenadaValida(tCoordenada coordenada){
 	
 	if(coordenada.letra > 'j' || coordenada.letra < 'a') return 0;
@@ -314,7 +303,7 @@ int EhCoordenadaValida(tCoordenada coordenada){
 }
 
 
-//Função para gerar uma matriz que será o tabuleiro "físico" do jogo//
+//Funï¿½ï¿½o para gerar uma matriz que serï¿½ o tabuleiro "fï¿½sico" do jogo//
 void GeraTabuleiroVazio(int linha, int coluna, char matriz[linha][coluna]){
 	
 	int l=0, c=0;
@@ -329,7 +318,7 @@ void GeraTabuleiroVazio(int linha, int coluna, char matriz[linha][coluna]){
 }
 
 
-//Função para verificar se há a presença de navios no tabuleiro com coordenadas iguais//
+//Funï¿½ï¿½o para verificar se hï¿½ a presenï¿½a de navios no tabuleiro com coordenadas iguais//
 int TemCoordenadaIgual(tTabuleiro tabuleiro){
 	
 	int x=0, y=0;
@@ -345,7 +334,7 @@ int TemCoordenadaIgual(tTabuleiro tabuleiro){
 }
 
 
-//Função para comparar duas coordenadas e verificar se são iguais//
+//Funï¿½ï¿½o para comparar duas coordenadas e verificar se sï¿½o iguais//
 int EhCoordenada1IgualA2(tCoordenada c1, tCoordenada c2){
 	
 	if(c1.letra == c2.letra && c1.coluna == c2.coluna) return 1;
@@ -354,20 +343,20 @@ int EhCoordenada1IgualA2(tCoordenada c1, tCoordenada c2){
 }
 
 
-//Função para verificar se há algum navio encostado ou sobre o outro// 
+//Funï¿½ï¿½o para verificar se hï¿½ algum navio encostado ou sobre o outro// 
 int NaviosEstaoEncostadosOuSobrepostos(tTabuleiro tabuleiro){
 	
 	int x=0, l=0, c=0; 
 		
 	if(TemCoordenadaIgual(tabuleiro)) return 1;  
 	
-	if(!CampoDeBatalhaCriadoComSucesso(tabuleiro)) return 1;   //o programa cria um campo de batalha(tabuleiro com navios) em um tabuleiro distinto pra verificar se há navios com posição inválida//
+	if(!CampoDeBatalhaCriadoComSucesso(tabuleiro)) return 1;   //o programa cria um campo de batalha(tabuleiro com navios) em um tabuleiro distinto pra verificar se hï¿½ navios com posiï¿½ï¿½o invï¿½lida//
 	
 	return 0;	
 }
 
 
-// Função para transformar a letra do tabuleiro em uma coordenada numérica nos padrões do tabuleiro//
+// Funï¿½ï¿½o para transformar a letra do tabuleiro em uma coordenada numï¿½rica nos padrï¿½es do tabuleiro//
 int LeCoordenadaAlfabetica(char letra){
 	
 	if(letra == 'a') return 1;
@@ -383,7 +372,7 @@ int LeCoordenadaAlfabetica(char letra){
 }
 
 
-//Função para informar o tamanho do navio de acordo com seu nome//
+//Funï¿½ï¿½o para informar o tamanho do navio de acordo com seu nome//
 int CalculaTamanhoDoNavio(char nome[]){
 	
 	if(strcmp(nome,"Carrier")==0) return  5;
@@ -394,7 +383,7 @@ int CalculaTamanhoDoNavio(char nome[]){
 }
 
 
-//Função para copiar a matriz de um tabuleiro em outra matriz//
+//Funï¿½ï¿½o para copiar a matriz de um tabuleiro em outra matriz//
 void CopiaMatriz1Na2(int l1, int c1, char m1[l1][c1], int l2, int c2, char m2[l2][c2]){
 	
 	int x=0, y=0;
@@ -409,12 +398,12 @@ void CopiaMatriz1Na2(int l1, int c1, char m1[l1][c1], int l2, int c2, char m2[l2
 }
 
 
-//Função para criar um campo de batalha (tabuleiro com navios) e dizer se ele foi criado corretamente//
-//Caso os navios estejam encostando ou sobrepostos a função retorna 0, informando que não foi possível criar um tabuleiro//
+//Funï¿½ï¿½o para criar um campo de batalha (tabuleiro com navios) e dizer se ele foi criado corretamente//
+//Caso os navios estejam encostando ou sobrepostos a funï¿½ï¿½o retorna 0, informando que nï¿½o foi possï¿½vel criar um tabuleiro//
 int CampoDeBatalhaCriadoComSucesso(tTabuleiro tabuleiro){
 	
 	
-	char tablado[10][10];        //aloquei uma matriz auxiliar parar tentar criar o tabuleiro dentro dela e verificar se é possível//
+	char tablado[10][10];        //aloquei uma matriz auxiliar parar tentar criar o tabuleiro dentro dela e verificar se ï¿½ possï¿½vel//
 	
 	GeraTabuleiroVazio(10, 10, tablado);
 			
@@ -423,7 +412,7 @@ int CampoDeBatalhaCriadoComSucesso(tTabuleiro tabuleiro){
 	
 for(x=0;x<tabuleiro.qtdNaviosTotal;x++){
 			
-		linha = CoordenadaLinhaNavio(tabuleiro.navio[x]) - 1;		//lembrando que as linnhas e colunas na matriz começam com 0, diminuí 1 unidade para manuseá-las//
+		linha = CoordenadaLinhaNavio(tabuleiro.navio[x]) - 1;		//lembrando que as linnhas e colunas na matriz comeï¿½am com 0, diminuï¿½ 1 unidade para manuseï¿½-las//
 		coluna = CoordenadaColunaNavio(tabuleiro.navio[x]) - 1;
 		direcao = DirecaoNavio(tabuleiro.navio[x]);                  // 0 = vertical , 1 = horizontal//
 		tamanho = TamanhoNavio(tabuleiro.navio[x]);
@@ -436,7 +425,7 @@ for(x=0;x<tabuleiro.qtdNaviosTotal;x++){
 		else if(tamanho == 4 && linha > 6) return 0;
 		else if(tamanho == 5 && linha > 5) return 0;
 	}
-		                                                          //CONDIÇÕES PARA O BARCO NAO EXCEDER OS LIMITES DO TABULEIRO//
+		                                                          //CONDIï¿½ï¿½ES PARA O BARCO NAO EXCEDER OS LIMITES DO TABULEIRO//
 	else if(direcao == 1){
 			
 		if(tamanho == 2 && coluna > 8) return 0;
@@ -448,7 +437,7 @@ for(x=0;x<tabuleiro.qtdNaviosTotal;x++){
 	for(y=0;y<tamanho;y++){
 			
 			
-		if(y==0){  // PARA VERIFICAR SE AS CÉLULAS AO REDOR DA PRIMEIRA COORDENADA DO NAVIO JÁ POSSUEM NAVIOS //
+		if(y==0){  // PARA VERIFICAR SE AS Cï¿½LULAS AO REDOR DA PRIMEIRA COORDENADA DO NAVIO Jï¿½ POSSUEM NAVIOS //
 				
 						
 			if(coluna == 0 && linha == 0){
@@ -478,7 +467,7 @@ for(x=0;x<tabuleiro.qtdNaviosTotal;x++){
 					tablado[linha][coluna] = 'X';
 				else return 0;
 			}
-				//ATÉ AQUI FORAM VERIFICADAS COORDENADAS NOS VÉRTICES DO TABULEIRO//
+				//ATï¿½ AQUI FORAM VERIFICADAS COORDENADAS NOS Vï¿½RTICES DO TABULEIRO//
 					
 						
 			else if(coluna == 0){
@@ -505,17 +494,17 @@ for(x=0;x<tabuleiro.qtdNaviosTotal;x++){
 				else return 0;
 			}
 			
-			//ATÉ AQUI FORAM VERIFICADAS COORDENADAS NAS ARESTAS DOS TABULEIROS//
+			//ATï¿½ AQUI FORAM VERIFICADAS COORDENADAS NAS ARESTAS DOS TABULEIROS//
 			
 			else{
 				if(tablado[linha - 1][coluna - 1] == 'o' && tablado[linha - 1][coluna] == 'o' && tablado[linha - 1][coluna + 1] == 'o' && tablado[linha][coluna - 1] == 'o' && tablado[linha][coluna + 1] == 'o' && tablado[linha + 1][coluna - 1] == 'o' && tablado[linha + 1][coluna] == 'o' && tablado[linha + 1][coluna + 1] == 'o')
 					tablado[linha][coluna] = 'X';
 				else return 0;
 			}		
-		}       //NESSE "ELSE" FORAM VERIFICADAS AS DEMAIS POSIÇÕES//
+		}       //NESSE "ELSE" FORAM VERIFICADAS AS DEMAIS POSIï¿½ï¿½ES//
 		    
 		
-		else if(y > 0){                                       // PARA VERIFICAR SE AS CÉLULAS AO REDOR DA SEGUNDA COORDENADA OU POSTERIOR DO NAVIO JÁ POSSUEM ALGUM NAVIO (UMA VERIFICAÇÃO PARA CADA DIREÇÃO)//
+		else if(y > 0){                                       // PARA VERIFICAR SE AS Cï¿½LULAS AO REDOR DA SEGUNDA COORDENADA OU POSTERIOR DO NAVIO Jï¿½ POSSUEM ALGUM NAVIO (UMA VERIFICAï¿½ï¿½O PARA CADA DIREï¿½ï¿½O)//
 			
 			if(direcao == 0){       // VERTICAL//
 				
@@ -578,7 +567,7 @@ for(x=0;x<tabuleiro.qtdNaviosTotal;x++){
 }
 
 
-//Função para imprimir um tabuleiro na tela e auxiliar na construção do código (permite ver as matrizes) //
+//Funï¿½ï¿½o para imprimir um tabuleiro na tela e auxiliar na construï¿½ï¿½o do cï¿½digo (permite ver as matrizes) //
 void ImprimeTabuleiro(tTabuleiro tabuleiro){
 	
 	int x=0, y=0;
@@ -594,7 +583,7 @@ void ImprimeTabuleiro(tTabuleiro tabuleiro){
 }
 
 
-//Função para realizar a montagem do tabuleiro com os barcos//
+//Funï¿½ï¿½o para realizar a montagem do tabuleiro com os barcos//
 tTabuleiro AdicionaNaviosNoTabuleiro(tTabuleiro tabuleiro){
 	
 	int x=0, y=0, linha = -1, coluna = -1, direcao = -1, tamanho = -1;
@@ -622,7 +611,7 @@ tTabuleiro AdicionaNaviosNoTabuleiro(tTabuleiro tabuleiro){
 }
 
 
-//Função para verificar compatibilidade entre os 2 tabuleiros//
+//Funï¿½ï¿½o para verificar compatibilidade entre os 2 tabuleiros//
 int SaoTabuleirosCompativeisEntreSi(tTabuleiro tab1, tTabuleiro tab2){
 	
 	int dest1=0, cruiser1=0, sub1=0, battle1=0, carrier1=0;
@@ -654,11 +643,11 @@ int SaoTabuleirosCompativeisEntreSi(tTabuleiro tab1, tTabuleiro tab2){
 		else if(b == 5) carrier2++;
 	}
 	
-	return (dest1 == dest2 && cruiser1 == cruiser2 && sub1 == sub2 && battle1 == battle2 && carrier1 == carrier2);  //VERIFICA SE A QUANTIDADE DE BARCOS DE CADA TIPO NOS TABULEIROS É IGUAL//	
+	return (dest1 == dest2 && cruiser1 == cruiser2 && sub1 == sub2 && battle1 == battle2 && carrier1 == carrier2);  //VERIFICA SE A QUANTIDADE DE BARCOS DE CADA TIPO NOS TABULEIROS ï¿½ IGUAL//	
 }
 
 
-//Função para criar arquivo de inicialização na pasta "saida"//
+//Funï¿½ï¿½o para criar arquivo de inicializaï¿½ï¿½o na pasta "saida"//
 void CriaArquivoDeInicializacao(FILE * file, tTabuleiro tab1, tTabuleiro tab2, char nome1[], char nome2[]){
 	
 	int x=0, y=0;
@@ -673,7 +662,7 @@ void CriaArquivoDeInicializacao(FILE * file, tTabuleiro tab1, tTabuleiro tab2, c
 }
 
 
-//Função para imprimir um tabuleiro dentro de um arquivo//
+//Funï¿½ï¿½o para imprimir um tabuleiro dentro de um arquivo//
 void ImprimeTabuleiroNoArquivo(tTabuleiro tabuleiro, FILE * file){
 	
 	int x=0, y=0;
@@ -693,7 +682,7 @@ void ImprimeTabuleiroNoArquivo(tTabuleiro tabuleiro, FILE * file){
 }
 
 
-//Função para verificar se o diretorio foi informado na execução do programa//
+//Funï¿½ï¿½o para verificar se o diretorio foi informado na execuï¿½ï¿½o do programa//
 int DiretorioNaoFoiInformado(int valorArg){
 
 	if(valorArg <= 1){
@@ -705,7 +694,7 @@ int DiretorioNaoFoiInformado(int valorArg){
 }
 
 
-//Função para ler o nome dos jogadores//
+//Funï¿½ï¿½o para ler o nome dos jogadores//
 void LeJogadores(char str[], char str2[]){
 	
 	printf("Nome do Jogador 1:\n");
@@ -716,17 +705,35 @@ void LeJogadores(char str[], char str2[]){
 }
 
 
-//Função para inicializar jogo//
+//Funï¿½ï¿½o para inicializar jogo//
 tJogo InicializaJogo(int argc, char ** argv){
-	
-		tJogo jogo;
-		jogo.EhJogoValido = 1;
-	
-		if(DiretorioNaoFoiInformado(argc)){ 	          //VERIFICA SE O DIRETORIO DOS ARQUIVOS FOI INFORMADO NO TERMINNAL//
-			
-			jogo.EhJogoValido =0;
-			return jogo;
-		}
+
+//========EXCLUINDO ARQUIVOS ANTIGOS E GERANDO TABULEIROS NOVOS===============//
+
+	char command1[30], command2[30];
+	sprintf(command1,"rm -rf ./%s/*.txt",argv[1]);
+	sprintf(command2,"rm -rf ./%s/saida/*.txt", argv[1]);
+
+	system(command1);
+	system(command2);
+
+	char name1[20], name2[20];
+	sprintf(name1,"./%s/tabu_1.txt", argv[1]);
+	sprintf(name2,"./%s/tabu_2.txt", argv[1]);
+
+	GeraTabuleiroAleatorio(name1);
+	GeraTabuleiroAleatorio(name2);
+
+//=====================================================//
+
+	tJogo jogo;
+	jogo.EhJogoValido = 1;
+
+	if(DiretorioNaoFoiInformado(argc)){ 	          //VERIFICA SE O DIRETORIO DOS ARQUIVOS FOI INFORMADO NO TERMINNAL//
+		
+		jogo.EhJogoValido =0;
+		return jogo;
+	}
 	
 	char diretorio[1000];
 	char diretorio2[1000];
@@ -736,7 +743,7 @@ tJogo InicializaJogo(int argc, char ** argv){
 	
 	
 	FILE * tab1File;
-	FILE * tab2File;			//CRIAÇÃO DOS TIPOS "FILE" PARA O TABULEIRO 1, 2 E PARA OS ARQUIVOS QUE O PROGRAMA VAI PRECISAR CRIAR DURANTE SUA EXECUÇÃO//
+	FILE * tab2File;			//CRIAï¿½ï¿½O DOS TIPOS "FILE" PARA O TABULEIRO 1, 2 E PARA OS ARQUIVOS QUE O PROGRAMA VAI PRECISAR CRIAR DURANTE SUA EXECUï¿½ï¿½O//
 	FILE * saidasFile;				
 	
 	
@@ -750,8 +757,8 @@ tJogo InicializaJogo(int argc, char ** argv){
 
 	tab2File = fopen(diretorio2, "r");
 	if(!tab2File){		
-		printf("Arquivo tabu_2.txt nao existe em %s", argv[1]);					//CASO OS ARQUIVOS TABU.TXT EXISTIREM NO DIRETÓRIO INFORMADO SÃO FEITAS SUAS ABERTURAS EM MODO DE LEITURA//
-		fclose(tab1File);														//CASO CONTRÁRIO, O PROGRAMA SERÁ FECHADO, EXIBINDO UMA MENSAGEM DE ERRO//
+		printf("Arquivo tabu_2.txt nao existe em %s", argv[1]);					//CASO OS ARQUIVOS TABU.TXT EXISTIREM NO DIRETï¿½RIO INFORMADO Sï¿½O FEITAS SUAS ABERTURAS EM MODO DE LEITURA//
+		fclose(tab1File);														//CASO CONTRï¿½RIO, O PROGRAMA SERï¿½ FECHADO, EXIBINDO UMA MENSAGEM DE ERRO//
 		jogo.EhJogoValido=0;
 		return jogo;																		
 	}
@@ -765,41 +772,41 @@ tJogo InicializaJogo(int argc, char ** argv){
 	
 	
 	char diretorioSaidaValidacao[1000];
-    sprintf(diretorioSaidaValidacao, "%s/saida/validacao_tabuleiros.txt", argv[1]);   //COLOCA O CAMINHO DO ARQUIVO DE VALIDAÇÃO NA STRING DECLARADA ACIMA//   
-    saidasFile = fopen(diretorioSaidaValidacao, "w");       //ABRE O ARQUIVO DE VALIDAÇÃO EM MODO ESCRITA//
+    sprintf(diretorioSaidaValidacao, "%s/saida/validacao_tabuleiros.txt", argv[1]);   //COLOCA O CAMINHO DO ARQUIVO DE VALIDAï¿½ï¿½O NA STRING DECLARADA ACIMA//   
+    saidasFile = fopen(diretorioSaidaValidacao, "w");       //ABRE O ARQUIVO DE VALIDAï¿½ï¿½O EM MODO ESCRITA//
     
 	
 	if(EhTabuleiroValido(jogo.tabu1)) {
 		
 		fprintf(saidasFile,"tabu_1.txt;valido\n");
-		jogo.tabu1 = AdicionaNaviosNoTabuleiro(jogo.tabu1);        //CASO O TABULEIRO 1 SEJA VÁLIDO, O PROGRAMA ADICIONA OS NAVIOS NO TABULEIRO 1//
+		jogo.tabu1 = AdicionaNaviosNoTabuleiro(jogo.tabu1);        //CASO O TABULEIRO 1 SEJA Vï¿½LIDO, O PROGRAMA ADICIONA OS NAVIOS NO TABULEIRO 1//
 	
 	}
-	else fprintf(saidasFile,"tabu_1.txt;invalido\n");		//CASO CONTRÁRIO, O PROGRAMA IMPRIME NO ARQUIVO QUE É INVÁLIDO//
+	else fprintf(saidasFile,"tabu_1.txt;invalido\n");		//CASO CONTRï¿½RIO, O PROGRAMA IMPRIME NO ARQUIVO QUE ï¿½ INVï¿½LIDO//
 	
 	
 	if(EhTabuleiroValido(jogo.tabu2)) {
 		
 		fprintf(saidasFile,"tabu_2.txt;valido");
-		jogo.tabu2 = AdicionaNaviosNoTabuleiro(jogo.tabu2);       //CASO O TABULEIRO 2 SEJA VÁLIDO, O PROGRAMA ADICIONA OS NAVIOS NO TABULEIRO 2//
+		jogo.tabu2 = AdicionaNaviosNoTabuleiro(jogo.tabu2);       //CASO O TABULEIRO 2 SEJA Vï¿½LIDO, O PROGRAMA ADICIONA OS NAVIOS NO TABULEIRO 2//
 
 	}
-	else fprintf(saidasFile,"tabu_2.txt;invalido");			//CASO CONTRÁRIO, O PROGRAMA IMPRIME NO ARQUIVO QUE É INVÁLIDO//
+	else fprintf(saidasFile,"tabu_2.txt;invalido");			//CASO CONTRï¿½RIO, O PROGRAMA IMPRIME NO ARQUIVO QUE ï¿½ INVï¿½LIDO//
 
 
-	if(EhTabuleiroValido(jogo.tabu1) && EhTabuleiroValido(jogo.tabu2)){					//O PROGRAMA VERIFICA SE OS 2 TABULEIROS SÃO VÁLIDOS//
-		if(SaoTabuleirosCompativeisEntreSi(jogo.tabu1, jogo.tabu2)){					//CASO SEJAM, ELE VERIFICA SE OS TABULEIROS SÃO COMPATÍVEIS ENTRE SI//
-			fprintf(saidasFile, "\nTabuleiros compativeis entre si");		//SE OS TABULEIROS FOREM COMPATÍVEIS, ELE IMPRIME NO ARQUIVO DE VALIDAÇÃO//
-			fclose(saidasFile);												//LOGO EM SEGUIDA FECHA O ARQUIVO DE VALIDAÇÃO//	
+	if(EhTabuleiroValido(jogo.tabu1) && EhTabuleiroValido(jogo.tabu2)){					//O PROGRAMA VERIFICA SE OS 2 TABULEIROS Sï¿½O Vï¿½LIDOS//
+		if(SaoTabuleirosCompativeisEntreSi(jogo.tabu1, jogo.tabu2)){					//CASO SEJAM, ELE VERIFICA SE OS TABULEIROS Sï¿½O COMPATï¿½VEIS ENTRE SI//
+			fprintf(saidasFile, "\nTabuleiros compativeis entre si");		//SE OS TABULEIROS FOREM COMPATï¿½VEIS, ELE IMPRIME NO ARQUIVO DE VALIDAï¿½ï¿½O//
+			fclose(saidasFile);												//LOGO EM SEGUIDA FECHA O ARQUIVO DE VALIDAï¿½ï¿½O//	
 		}                                                                        
 		else{			
-			fprintf(saidasFile, "\nTabuleiros incompativeis entre si");		//CASO SEJAM INCOMPATÍVEIS, ELE IMPRIME NO ARQUIVO DE VALIDAÇÃO//		
-			fclose(saidasFile);												//LOGO EM SEGUIDA FECHA O ARQUIVO DE VALIDAÇÃO//
-			jogo.EhJogoValido=0;														//E TAMBÉM FECHA O PROGRAMA//
+			fprintf(saidasFile, "\nTabuleiros incompativeis entre si");		//CASO SEJAM INCOMPATï¿½VEIS, ELE IMPRIME NO ARQUIVO DE VALIDAï¿½ï¿½O//		
+			fclose(saidasFile);												//LOGO EM SEGUIDA FECHA O ARQUIVO DE VALIDAï¿½ï¿½O//
+			jogo.EhJogoValido=0;														//E TAMBï¿½M FECHA O PROGRAMA//
 			return jogo;		
 		} 
 	}
-	else{          												//CASO ALGUM DOS TABULEIROS SEJA INVÁLIDO, O PROGRAMA RETORNA O JOGO PRA FUNCAO MAIN COM A VARIAVEL "EHJOGOVALIDO = 0//
+	else{          												//CASO ALGUM DOS TABULEIROS SEJA INVï¿½LIDO, O PROGRAMA RETORNA O JOGO PRA FUNCAO MAIN COM A VARIAVEL "EHJOGOVALIDO = 0//
 		jogo.EhJogoValido=0;									//INDICANDO QUE O PROG DEVE SER FECHADO//
 		return jogo;
 	}
@@ -807,56 +814,56 @@ tJogo InicializaJogo(int argc, char ** argv){
 	LeJogadores(jogo.jogador1, jogo.jogador2);                            //LE  NOMES DOS JOGADORES E JOGA NAS STRINGS//
 	
 	char diretorioSaidaInicializacao[1000];
-	sprintf(diretorioSaidaInicializacao,"%s/saida/inicializacao.txt", argv[1]);				//CRIA CAMINNHO DO ARQUIVO DE INICIALIZAÇÃO E JOGA NA STRING ACIMA//
-	saidasFile = fopen(diretorioSaidaInicializacao, "w");								//ABRE O ARQUIVO DE INICIALIZAÇÃO NO MODO ESCRITA//
+	sprintf(diretorioSaidaInicializacao,"%s/saida/inicializacao.txt", argv[1]);				//CRIA CAMINNHO DO ARQUIVO DE INICIALIZAï¿½ï¿½O E JOGA NA STRING ACIMA//
+	saidasFile = fopen(diretorioSaidaInicializacao, "w");								//ABRE O ARQUIVO DE INICIALIZAï¿½ï¿½O NO MODO ESCRITA//
 	
-	CriaArquivoDeInicializacao(saidasFile, jogo.tabu1, jogo.tabu2, jogo.jogador1, jogo.jogador2);			//ESCREVE OS DADOS DO ARQUIVO DE INICIALIZAÇÃO//
+	CriaArquivoDeInicializacao(saidasFile, jogo.tabu1, jogo.tabu2, jogo.jogador1, jogo.jogador2);			//ESCREVE OS DADOS DO ARQUIVO DE INICIALIZAï¿½ï¿½O//
 	fclose(saidasFile);
 	
 	return jogo;
 }
 
 
-//Função para verificar se o jogo deve fechar ou continuar rodando//
+//Funï¿½ï¿½o para verificar se o jogo deve fechar ou continuar rodando//
 int EhJogoValido(tJogo jogo){
 	
 	return jogo.EhJogoValido;	
 }
 
 
-//Função para verificar se um número é par//
+//Funï¿½ï¿½o para verificar se um nï¿½mero ï¿½ par//
 int EhPar(int num){
 	
 	return (num%2 == 0);
 }
 
 
-//Função para executar o jogo//
+//Funï¿½ï¿½o para executar o jogo//
 void JogaJogo(tJogo jogo, char** argv){
 	
 	tJogada jogadaJogador1[100], jogadaJogador2[100];    //VETORES PARA ARMAZENAR TODAS AS JOGADAS DO JOGO, TANTO DO JOGADOR 1 QUANTO DO JOGADOR 2//
 	int qJ1=0, qJ2=0;			  //QUANTIDADE DE JOGADAS DO JOGADOR 1 E 2//	
 	int x=0; 						//CONTADOR DE JOGADAS GERAIS PARA ALTERNAR AS JOGADAS ENTRE OS JOGADORES//
-	int jogador1Venceu=0, jogador2Venceu=0, empate=0;	//VARIÁVEIS PARA VERIFICAR VENCEDORES E EMPATE//
+	int jogador1Venceu=0, jogador2Venceu=0, empate=0;	//VARIï¿½VEIS PARA VERIFICAR VENCEDORES E EMPATE//
 	FILE * resultFile;			//TIPO "FILE" PARA ALOCAR O ARQUIVO DE RESULTADO//
 	FILE * estFile;				//TIPO "FILE" PARA ALOCAR O ARQUIVO DE ESTATISTICAS//
-	int tabuAuxiliar1[10][10], tabuAuxiliar2[10][10];		//TABULEIRO DE INTEIROS COM OS IDs DOS NAVIOS AO INVÉS DO X PARA LOCALIZA-LOS COM MAIS FACILIDADE//
+	int tabuAuxiliar1[10][10], tabuAuxiliar2[10][10];		//TABULEIRO DE INTEIROS COM OS IDs DOS NAVIOS AO INVï¿½S DO X PARA LOCALIZA-LOS COM MAIS FACILIDADE//
 	char tabuSaida1[10][10], tabuSaida2[10][10];		//TABULEIRO QUE VAI SER ATUALIZADO E IMPRESSO NA TELA//
 	char vencedor[17];		//STRING PARA ALOCAR O NOME DO VENCEDOR//
-	tEstatistica estatistica1, estatistica2;  //ALOCAÇÃO DO TIPO ESTATISTICA PARA OS 2 JOGADORES//
+	tEstatistica estatistica1, estatistica2;  //ALOCAï¿½ï¿½O DO TIPO ESTATISTICA PARA OS 2 JOGADORES//
 	
 		
 	GeraTabuleiroAuxiliarVazio(tabuAuxiliar1);
 	GeraTabuleiroAuxiliarVazio(tabuAuxiliar2);
 	PreparaTabuleiroAuxiliar(jogo.tabu1, tabuAuxiliar1);
-	PreparaTabuleiroAuxiliar(jogo.tabu2, tabuAuxiliar2);		//GERAÇÃO E PREPARAÇÃO DE TABULEIROS AUXILIARES E DE SAÍDA//
+	PreparaTabuleiroAuxiliar(jogo.tabu2, tabuAuxiliar2);		//GERAï¿½ï¿½O E PREPARAï¿½ï¿½O DE TABULEIROS AUXILIARES E DE SAï¿½DA//
 	GeraTabuleiroSaidaVazio(tabuSaida1);
 	GeraTabuleiroSaidaVazio(tabuSaida2);
 					
 		
 	while(1){								//LOOP PARA REALIZAR AS JOGADAS//				
 		
-		if(jogador1Venceu){ 	//SE O JOGADOR 1 VENCER, O JOGADOR 2 TEM SUA ÚLTIMA CHANCE//
+		if(jogador1Venceu){ 	//SE O JOGADOR 1 VENCER, O JOGADOR 2 TEM SUA ï¿½LTIMA CHANCE//
 								
 			jogadaJogador2[qJ2] = JogaJogador(jogo.jogador2, jogadaJogador2, jogadaJogador2[qJ2], qJ2, tabuAuxiliar1, tabuSaida1, jogo.tabu1);
 			ImprimeTabladoSaida(tabuSaida1, jogo.jogador2, jogo.jogador1);
@@ -875,7 +882,7 @@ void JogaJogo(tJogo jogo, char** argv){
 				strcpy(vencedor, jogo.jogador1);
 			} 
 			break;
-		}            //ATÉ AQUI - CASO O JOGADOR 1 VENÇA//
+		}            //ATï¿½ AQUI - CASO O JOGADOR 1 VENï¿½A//
 		
 		//________________________________________________________________________________________________________________________________________//
 				
@@ -888,19 +895,19 @@ void JogaJogo(tJogo jogo, char** argv){
 		}
 		//__________________________________________________________________________________________________________________________________________//	
 				
-		if(EhPar(x)){						//SE X FOR PAR, É A VEZ DO JOGADOR 1, CASO CONTRÁRIO, É A VEZ DO JOGADOR 2//
+		if(EhPar(x)){						//SE X FOR PAR, ï¿½ A VEZ DO JOGADOR 1, CASO CONTRï¿½RIO, ï¿½ A VEZ DO JOGADOR 2//
 			
-			jogadaJogador1[qJ1] = JogaJogador(jogo.jogador1, jogadaJogador1, jogadaJogador1[qJ1], qJ1, tabuAuxiliar2, tabuSaida2, jogo.tabu2); 	//A JOGADA DO JOGADOR1 É EFETUADA E ARMAZENADA EM UM COMPONNENTE DO VETOR DE TJOGADAS//  AS JOGADAS SAO ARMAZENADAS A FIM DE CALCULAR AS ESTATÍSTICAS E GERAR ARQUIVO DE RESULTADO
-			ImprimeTabladoSaida(tabuSaida2, jogo.jogador1, jogo.jogador2);		//IMPRESSÃO DO TABULEIRO INIMIGO ATUALIZADO//												
-			if(JogadorVenceu(tabuAuxiliar2)) jogador1Venceu = 1;    //SE O JOGADOR VENCER, O PROG INDICA NA VARIÁVEL//
+			jogadaJogador1[qJ1] = JogaJogador(jogo.jogador1, jogadaJogador1, jogadaJogador1[qJ1], qJ1, tabuAuxiliar2, tabuSaida2, jogo.tabu2); 	//A JOGADA DO JOGADOR1 ï¿½ EFETUADA E ARMAZENADA EM UM COMPONNENTE DO VETOR DE TJOGADAS//  AS JOGADAS SAO ARMAZENADAS A FIM DE CALCULAR AS ESTATï¿½STICAS E GERAR ARQUIVO DE RESULTADO
+			ImprimeTabladoSaida(tabuSaida2, jogo.jogador1, jogo.jogador2);		//IMPRESSï¿½O DO TABULEIRO INIMIGO ATUALIZADO//												
+			if(JogadorVenceu(tabuAuxiliar2)) jogador1Venceu = 1;    //SE O JOGADOR VENCER, O PROG INDICA NA VARIï¿½VEL//
 			
 			qJ1++;	//AUMENTA EM 1 A QUANTIDADE DE JOGADAS DO JOGADOR 1//	
 		}
 		
-		else {							//SE X FOR ÍMPAR, É A VEZ DO JOGADOR 2//
+		else {							//SE X FOR ï¿½MPAR, ï¿½ A VEZ DO JOGADOR 2//
 			
-			jogadaJogador2[qJ2] = JogaJogador(jogo.jogador2, jogadaJogador2, jogadaJogador2[qJ2], qJ2, tabuAuxiliar1, tabuSaida1, jogo.tabu1);	//EXECUÇÃO DA JOGADA DO JOGADOR 2//	
-			ImprimeTabladoSaida(tabuSaida1, jogo.jogador2, jogo.jogador1);	//IMPRESSÃO DO TABULEIRO INIMIGO ATUALIZADO//
+			jogadaJogador2[qJ2] = JogaJogador(jogo.jogador2, jogadaJogador2, jogadaJogador2[qJ2], qJ2, tabuAuxiliar1, tabuSaida1, jogo.tabu1);	//EXECUï¿½ï¿½O DA JOGADA DO JOGADOR 2//	
+			ImprimeTabladoSaida(tabuSaida1, jogo.jogador2, jogo.jogador1);	//IMPRESSï¿½O DO TABULEIRO INIMIGO ATUALIZADO//
 			if(JogadorVenceu(tabuAuxiliar1)) jogador2Venceu = 1;
 			
 			qJ2++;  //AUMENTA EM 1 A QUANTIDADE DE JOGADAS DO JOGADOR 2//
@@ -922,76 +929,76 @@ void JogaJogo(tJogo jogo, char** argv){
 	estFile = fopen(diretorioEstatistica,"w");	//ABRE O ARQUIVO DE ESTATISTICAS NO MODO ESCRITA//
 	
 	estatistica1 = GeraEstatisticas(jogadaJogador1, qJ1, qJ2, jogadaJogador2, jogo.jogador1);	
-	estatistica2 = GeraEstatisticas(jogadaJogador2, qJ2, qJ1, jogadaJogador1, jogo.jogador2);		//LEITURA, INICIALIZAÇÃO E PROCESSAMENTO DAS ESTATISTICAS DO JOGO//
-	GeraArquivoEstatisticas(estatistica1, estFile);		//IMPRESSÃO DAS ESTATISTICAS DO JOGADOR 1 NO ARQUIVO//
+	estatistica2 = GeraEstatisticas(jogadaJogador2, qJ2, qJ1, jogadaJogador1, jogo.jogador2);		//LEITURA, INICIALIZAï¿½ï¿½O E PROCESSAMENTO DAS ESTATISTICAS DO JOGO//
+	GeraArquivoEstatisticas(estatistica1, estFile);		//IMPRESSï¿½O DAS ESTATISTICAS DO JOGADOR 1 NO ARQUIVO//
 	fprintf(resultFile,"\n");
-	GeraArquivoEstatisticas(estatistica2, estFile);		//IMPRESSÃO DAS ESTATISTICAS DO JOGADOR 2 NO ARQUIVO//
+	GeraArquivoEstatisticas(estatistica2, estFile);		//IMPRESSï¿½O DAS ESTATISTICAS DO JOGADOR 2 NO ARQUIVO//
 		
 	fclose(estFile);		//FECHA O ARQUIVO DE ESTATISTICAS//
 }
 
 
-//Função para ler uma jogada do buffer//
+//Funï¿½ï¿½o para ler uma jogada do buffer//
 tJogada LeJogada(){
 	
 	tJogada jogada;
 	
-	jogada.coordenada = LeCoordenada();		//A JOGADA É DADA EM COORDENADA//
-	if(FoiCoordenadaLidaComSucesso(jogada.coordenada)) jogada.confirmaLeitura = 1;  //INFORMA SE AS INFORMAÇÕES DA JOGADA FORAM COLHIDAS COM SUCESSO PARA POSTERIORMENTE VERIFICAR SUA VALIDADE//
+	jogada.coordenada = LeCoordenada();		//A JOGADA ï¿½ DADA EM COORDENADA//
+	if(FoiCoordenadaLidaComSucesso(jogada.coordenada)) jogada.confirmaLeitura = 1;  //INFORMA SE AS INFORMAï¿½ï¿½ES DA JOGADA FORAM COLHIDAS COM SUCESSO PARA POSTERIORMENTE VERIFICAR SUA VALIDADE//
 	else jogada.confirmaLeitura = 0;
 		
 	return jogada;
 }
 
 
-//Função para ler uma coordenada das jogadas//
+//Funï¿½ï¿½o para ler uma coordenada das jogadas//
 tCoordenada LeCoordenada(){
 	
 	tCoordenada coordenada;
 	int rtn;
 	char str[10];
 	
-	coordenada.confirmaLeitura = 1;  //A CONFIRMAÇÃO DA LEITURA DA COORDENADA NO BUFFER É SETADA EM 1. CASO HAJA ERRO, O PROGRAMA MUDA PARA 0//
+	coordenada.confirmaLeitura = 1;  //A CONFIRMAï¿½ï¿½O DA LEITURA DA COORDENADA NO BUFFER ï¿½ SETADA EM 1. CASO HAJA ERRO, O PROGRAMA MUDA PARA 0//
 	
 	scanf("%*c%s", str);
 	strcpy(coordenada.strCord, str);  //JOGA A COORDENADA DE ENTRADA NO BUFFER PARA UMA STRING O TIPO TJOGADA//
 	
-	if(strlen(str) <= 3){		//CALCULA O TAMANHO DA STRING DA COORDENADA. CASO PASSE DE 3, A COORDENADA JÁ É INVÁLIDA//
+	if(strlen(str) <= 3){		//CALCULA O TAMANHO DA STRING DA COORDENADA. CASO PASSE DE 3, A COORDENADA Jï¿½ ï¿½ INVï¿½LIDA//
 		
 		rtn = sscanf(str,"%c%d", &coordenada.letra, &coordenada.coluna);	
 	}
 	else coordenada.confirmaLeitura =0; 
 		
-	coordenada.linha = LeCoordenadaAlfabetica(coordenada.letra);	//LE A COORDENADA DE LETRA E TRASFORMA NO NÚMERO DA LINHA CORRESPONDENTE//	
-	if(rtn != 2) coordenada.confirmaLeitura =0;  //SE O RETORNO DA LEITURA DA COORDENADA FOR DIFERENTE DO ESPERADO, A COORDENADA É DADA COMO INVÁLIDA//
+	coordenada.linha = LeCoordenadaAlfabetica(coordenada.letra);	//LE A COORDENADA DE LETRA E TRASFORMA NO Nï¿½MERO DA LINHA CORRESPONDENTE//	
+	if(rtn != 2) coordenada.confirmaLeitura =0;  //SE O RETORNO DA LEITURA DA COORDENADA FOR DIFERENTE DO ESPERADO, A COORDENADA ï¿½ DADA COMO INVï¿½LIDA//
 	
 	if(strlen(str) == 3){
 		
-		if(str[2] > '9' || str[2] < '0') coordenada.confirmaLeitura = 0;		//CASO A STRING TIVER 3 COMPONENTES, O ULTIMO PODE ESTAR APENAS ENTRE 0 E 9, SENÃO A COORDENADA É INVÁLIDA//
+		if(str[2] > '9' || str[2] < '0') coordenada.confirmaLeitura = 0;		//CASO A STRING TIVER 3 COMPONENTES, O ULTIMO PODE ESTAR APENAS ENTRE 0 E 9, SENï¿½O A COORDENADA ï¿½ INVï¿½LIDA//
 	}
 		
 	return coordenada;
 }
 
 
-//Função para saber se uma coordenada foi lida corretamente//
+//Funï¿½ï¿½o para saber se uma coordenada foi lida corretamente//
 int FoiCoordenadaLidaComSucesso(tCoordenada coordenada){
 	
 	return coordenada.confirmaLeitura;
 }
 
 
-//Função para saber se uma jogada é válida//
+//Funï¿½ï¿½o para saber se uma jogada ï¿½ vï¿½lida//
 int EhJogadaValida(tJogada jogada){
 	
-	if(jogada.confirmaLeitura == 0) return 0;				//PARA CONFIRMAR UMA JOGADA, CONFERE-SE A VARIÁVEL CONFIRMA LEITURA, COMO JÁ VISTO ANTES//
-	if(!EhCoordenadaValida(jogada.coordenada)) return 0;	//TAMBÉM CONFERE SE A COORDENADA ESTÁ NOS PADRÕES DO TABULEIRO//
+	if(jogada.confirmaLeitura == 0) return 0;				//PARA CONFIRMAR UMA JOGADA, CONFERE-SE A VARIï¿½VEL CONFIRMA LEITURA, COMO Jï¿½ VISTO ANTES//
+	if(!EhCoordenadaValida(jogada.coordenada)) return 0;	//TAMBï¿½M CONFERE SE A COORDENADA ESTï¿½ NOS PADRï¿½ES DO TABULEIRO//
 	
 	return 1;
 }
 
 
-//Função para saber se uma jogada já foi realizada//
+//Funï¿½ï¿½o para saber se uma jogada jï¿½ foi realizada//
 int EhJogadaRepetida(tJogada vetjogada[], tJogada jogada, int qtdJog){
 	
 	int y=0;
@@ -1005,14 +1012,14 @@ int EhJogadaRepetida(tJogada vetjogada[], tJogada jogada, int qtdJog){
 }
 
 
-//Função para imprimir uma coordenada na tela e no arquivo ao mesmo tempo//
+//Funï¿½ï¿½o para imprimir uma coordenada na tela e no arquivo ao mesmo tempo//
 void ImprimeCoordenada(tCoordenada coordenada){
 	
 	printf("\n%s:", coordenada.strCord);	
 }
 
 
-//Função que retorna um número de acordo com seu nome para ser usado como parâmetro dentro de outra função (a partir de um navio)//
+//Funï¿½ï¿½o que retorna um nï¿½mero de acordo com seu nome para ser usado como parï¿½metro dentro de outra funï¿½ï¿½o (a partir de um navio)//
 int NomeNavio(tNavio navio){
 	
 	if(strcmp(navio.nome, "Destroyer") == 0) return 1;
@@ -1023,56 +1030,56 @@ int NomeNavio(tNavio navio){
 }
 
 
-//Função que retorna a linha da coordenada de um navio//
+//Funï¿½ï¿½o que retorna a linha da coordenada de um navio//
 int CoordenadaLinhaNavio(tNavio navio){
 	
 	return CoordenadaLinhaCoordenada(navio.coordenada);	
 }
 
 
-//Função que retora a linha de uma coordenada através da entrada de uma coordenada//
+//Funï¿½ï¿½o que retora a linha de uma coordenada atravï¿½s da entrada de uma coordenada//
 int CoordenadaLinhaCoordenada(tCoordenada coordenada){
 	
 	return coordenada.linha;
 }
 
 
-//Função que retorna a coluna da coordenada de um navio//
+//Funï¿½ï¿½o que retorna a coluna da coordenada de um navio//
 int CoordenadaColunaNavio(tNavio navio){
 			
 	return CoordenadaColunaCoordenada(navio.coordenada);
 }
 
 
-//Função que retorna a coluna de uma coordenada através da entrada de uma coordenada//
+//Funï¿½ï¿½o que retorna a coluna de uma coordenada atravï¿½s da entrada de uma coordenada//
 int CoordenadaColunaCoordenada(tCoordenada coordenada){
 	
 	return coordenada.coluna;
 }
 
 
-//Função que retorna a direção do navio(horizontal = 1, vertical = 0)//
+//Funï¿½ï¿½o que retorna a direï¿½ï¿½o do navio(horizontal = 1, vertical = 0)//
 int DirecaoNavio(tNavio navio){
 	
 	return navio.orientacao;
 }
 
 
-//função que retorna o tamanho do navio//
+//funï¿½ï¿½o que retorna o tamanho do navio//
 int TamanhoNavio(tNavio navio){
 	
 	return navio.tamanho;
 }
 
 
-//Função para verificar se 2 navios possuem a mesma coordenada//
+//Funï¿½ï¿½o para verificar se 2 navios possuem a mesma coordenada//
 int NaviosTemMesmaCoordenada(tNavio navio1, tNavio navio2){
 	
 	return EhCoordenada1IgualA2(navio1.coordenada, navio2.coordenada);			
 }
 
 
-//Funçaõ para gerar um tabuleiro auxiliar vazio (nesse caso é um tabuleiro de inteiros e não de char)//
+//Funï¿½aï¿½ para gerar um tabuleiro auxiliar vazio (nesse caso ï¿½ um tabuleiro de inteiros e nï¿½o de char)//
 void GeraTabuleiroAuxiliarVazio(int tablado[10][10]){
 	
 	int x=0, y=0;
@@ -1086,11 +1093,11 @@ void GeraTabuleiroAuxiliarVazio(int tablado[10][10]){
 }
 
 
-//Função para colocar o ID dos navios no tabuleiro auxiliar//
+//Funï¿½ï¿½o para colocar o ID dos navios no tabuleiro auxiliar//
 void PreparaTabuleiroAuxiliar(tTabuleiro tabuleiro, int tablado[10][10]){
 	
 	int x=0, y=0, linha=0, coluna=0, id=0, tamanho=0, direcao=0;	
-																					//NESSA FUNÇÃO EU COLOCO O ID DE CADA NAVIO NO LUGAR ONDE DEVERIA ESTAR O "X"//	
+																					//NESSA FUNï¿½ï¿½O EU COLOCO O ID DE CADA NAVIO NO LUGAR ONDE DEVERIA ESTAR O "X"//	
 	for(x=0;x<tabuleiro.qtdNaviosTotal;x++){										
 		
 		linha = CoordenadaLinhaNavio(tabuleiro.navio[x]) - 1;
@@ -1118,14 +1125,14 @@ void PreparaTabuleiroAuxiliar(tTabuleiro tabuleiro, int tablado[10][10]){
 }
 
 
-//Função para retornar o ID do navio//
+//Funï¿½ï¿½o para retornar o ID do navio//
 int IdNavio(tNavio navio){
 	
 	return navio.ID;
 }
 
 
-//Função para gerar um tabuleiro de saída vazio (com pontos '.')//
+//Funï¿½ï¿½o para gerar um tabuleiro de saï¿½da vazio (com pontos '.')//
 void GeraTabuleiroSaidaVazio(char tablado[10][10]){
 	
 	int x=0, y=0;
@@ -1138,12 +1145,12 @@ void GeraTabuleiroSaidaVazio(char tablado[10][10]){
 }
 
 
-//Função para imprimir o tabuleiro de saída tanto na tela, como no arquivo de saída//
+//Funï¿½ï¿½o para imprimir o tabuleiro de saï¿½da tanto na tela, como no arquivo de saï¿½da//
 void ImprimeTabladoSaida(char tablado[10][10], char nome1[], char  nome2[]){
 	
 	int x=0, y=0;
 	
-	printf("\nTabuleiro atual de %s apos a jogada de %s\n", nome2, nome1);			//NESTA FUNÇÃO, A IMPRESSÃO DO TABULEIRO É ANTECEDIDA POR ESTE TEXTO// 			
+	printf("\nTabuleiro atual de %s apos a jogada de %s\n", nome2, nome1);			//NESTA FUNï¿½ï¿½O, A IMPRESSï¿½O DO TABULEIRO ï¿½ ANTECEDIDA POR ESTE TEXTO// 			
 	
 	for(x=0;x<10;x++){
 		for(y=0;y<10;y++){
@@ -1162,7 +1169,7 @@ void ImprimeTabladoSaida(char tablado[10][10], char nome1[], char  nome2[]){
 }
 
 
-//Função para imprimir o tabuleiro de inteiros para auxiliar na construção do código (facilita a visualização das jogadas)//
+//Funï¿½ï¿½o para imprimir o tabuleiro de inteiros para auxiliar na construï¿½ï¿½o do cï¿½digo (facilita a visualizaï¿½ï¿½o das jogadas)//
 void ImprimeTabladoAuxiliar(int tablado[10][10]){
 	
 	int x=0, y=0;
@@ -1177,25 +1184,25 @@ void ImprimeTabladoAuxiliar(int tablado[10][10]){
 }
 
 
-//Função para executar uma jogada nos tabuleiros e atualizá-los//
+//Funï¿½ï¿½o para executar uma jogada nos tabuleiros e atualizï¿½-los//
 tJogada RealizaJogada(tTabuleiro tabuleiro, tJogada jogada, int tabladoId[10][10], char tabladoSaida[10][10], int qJ){
 	
 	int x=0, y=0, num=-1;
 	
-	int linha = CoordenadaLinhaCoordenada(jogada.coordenada) - 1;			//COMEÇO PASSANDO AS LINHAS E COLUNAS DE ACORDO COM AS MATRIZES(COMEÇA DO 0)//
+	int linha = CoordenadaLinhaCoordenada(jogada.coordenada) - 1;			//COMEï¿½O PASSANDO AS LINHAS E COLUNAS DE ACORDO COM AS MATRIZES(COMEï¿½A DO 0)//
 	int coluna = CoordenadaColunaCoordenada(jogada.coordenada) - 1;
 	
-	if(tabladoId[linha][coluna] == -999){				//SE O LOCAL DA JOGADA FOR = -999, QUER DIZER QUE O TIRO FOI NA ÁGUA//
+	if(tabladoId[linha][coluna] == -999){				//SE O LOCAL DA JOGADA FOR = -999, QUER DIZER QUE O TIRO FOI NA ï¿½GUA//
 		
 		strcpy(jogada.tipo, "Agua");
-		printf("Agua\n");							//IMPRESSÃO DAS INFORMAÇÕES DA JOGADA NA TELA//
-		tabladoSaida[linha][coluna] = 'o';			//ATUALIZAÇÃO DO TABULEIRO DE SAÍDA//
+		printf("Agua\n");							//IMPRESSï¿½O DAS INFORMAï¿½ï¿½ES DA JOGADA NA TELA//
+		tabladoSaida[linha][coluna] = 'o';			//ATUALIZAï¿½ï¿½O DO TABULEIRO DE SAï¿½DA//
 	}
 	
 	else{		//CASO O LOCAL DA JOGADA SEJA DIFERENTE DE -999//
 		
 		strcpy(jogada.tipo, "Tiro");			//O TIPO DA JOGADA VAI SER "TIRO"//
-		tabladoSaida[linha][coluna] = 'X';		//ATUALIZAÇÃO DO TABULEIRO DE SAIDA//
+		tabladoSaida[linha][coluna] = 'X';		//ATUALIZAï¿½ï¿½O DO TABULEIRO DE SAIDA//
 				
 		num = tabladoId[linha][coluna];			
 		
@@ -1203,13 +1210,13 @@ tJogada RealizaJogada(tTabuleiro tabuleiro, tJogada jogada, int tabladoId[10][10
 			if(IdNavio(tabuleiro.navio[x]) == num){
 				
 				jogada = ColocaNomeDoNavioAcertadoNaJogada(tabuleiro.navio[x], jogada);		//ARMAZENA O NOME DO NAVIO ACERTADO PELO TIRO NO TIPO TJOGADA//
-				break;																		//O NOME DO NAVIO É DESCOBERTO ATRAVÉS DO ID//
+				break;																		//O NOME DO NAVIO ï¿½ DESCOBERTO ATRAVï¿½S DO ID//
 			} 
 		}
 				
-		tabladoId[linha][coluna] = -999;		//LOCAL DA JOGADA É MODIFICADO PARA -999 (E ASSIM SEGUE ATÉ ESVAZIAR O TABULEIRO E SABER QUAIS NAVIOS AFUDARAM)//
+		tabladoId[linha][coluna] = -999;		//LOCAL DA JOGADA ï¿½ MODIFICADO PARA -999 (E ASSIM SEGUE ATï¿½ ESVAZIAR O TABULEIRO E SABER QUAIS NAVIOS AFUDARAM)//
 		
-		if(AfundouNavio(tabladoId, num)){		//SE ALGUM NAVIO AFUNDOU O PROGRAMA INFORMA NA TELA E NO ARQUIVO DE SAÍDA//
+		if(AfundouNavio(tabladoId, num)){		//SE ALGUM NAVIO AFUNDOU O PROGRAMA INFORMA NA TELA E NO ARQUIVO DE SAï¿½DA//
 			
 			printf("Afundou %s\n", jogada.navioAcertado);			
 		}
@@ -1225,7 +1232,7 @@ tJogada RealizaJogada(tTabuleiro tabuleiro, tJogada jogada, int tabladoId[10][10
 }
 
 
-//Função para armazenar o nome de um navio no tipo tJogada//
+//Funï¿½ï¿½o para armazenar o nome de um navio no tipo tJogada//
 tJogada ColocaNomeDoNavioAcertadoNaJogada(tNavio navio, tJogada jogada){
 	
 	strcpy(jogada.navioAcertado, navio.nome);	//			
@@ -1235,11 +1242,11 @@ tJogada ColocaNomeDoNavioAcertadoNaJogada(tNavio navio, tJogada jogada){
 }
 
 
-//Função para verificar se um navio afundou//
+//Funï¿½ï¿½o para verificar se um navio afundou//
 int AfundouNavio(int tablado[10][10], int num){
 	
 	int cont=0, x=0, y=0;
-									//A VARIÁVEL NUM = ID DO NAVIO//  LEMBRANDO QUE O TABULEIRO AUXILIAR (de inteiros) possui zeros e IDs//
+									//A VARIï¿½VEL NUM = ID DO NAVIO//  LEMBRANDO QUE O TABULEIRO AUXILIAR (de inteiros) possui zeros e IDs//
 	for(x=0;x<10;x++){				//QUANDO UM ID SE ESGOTA DO TABULEIRO, QUER DIZER QUE O NAVIO AFUNDOU//	
 		for(y=0;y<10;y++){
 			
@@ -1253,28 +1260,28 @@ int AfundouNavio(int tablado[10][10], int num){
 }
 
 
-//Função para ler a jogada do jogador 1, jogá-la e atualizar o o tipo tJogada com as informações processadas//
+//Funï¿½ï¿½o para ler a jogada do jogador 1, jogï¿½-la e atualizar o o tipo tJogada com as informaï¿½ï¿½es processadas//
 tJogada JogaJogador(char nomeJogador[], tJogada jogadasJogador1[], tJogada jogadaJogador1, int qJ1, int tabuAuxiliar2[10][10], char tabuSaida2[10][10], tTabuleiro tabuInimigo){			//RETORNA UM TIPO TJOGADA PARA ARMAZENAR OS DADOS DA JOGADA CAPTADOS E PROCESSADOR NO STRUCT//
 	
 	printf("\nJogada de %s:\n", nomeJogador);			
 	jogadaJogador1 = LeJogada();					//LEITURA DA JOGADA DIRETAMENTE DO BUFFER//
 			
-	while(!EhJogadaValida(jogadaJogador1) || EhJogadaRepetida(jogadasJogador1, jogadaJogador1, qJ1)){		//VERIFICAÇÃO DE JOGADA INVÁLIDA OU REPETIDA//	
+	while(!EhJogadaValida(jogadaJogador1) || EhJogadaRepetida(jogadasJogador1, jogadaJogador1, qJ1)){		//VERIFICAï¿½ï¿½O DE JOGADA INVï¿½LIDA OU REPETIDA//	
 				
 		ImprimeCoordenada(jogadaJogador1.coordenada);
-		printf("Jogada invalida! Jogue novamente %s:\n", nomeJogador);				//CASO A JOGADA SEJA INVÁLIDA OU REPETIDA, UMA MENSAGEM DE ERRO É IMPRIMIDA NA TELA//
+		printf("Jogada invalida! Jogue novamente %s:\n", nomeJogador);				//CASO A JOGADA SEJA INVï¿½LIDA OU REPETIDA, UMA MENSAGEM DE ERRO ï¿½ IMPRIMIDA NA TELA//
 		jogadaJogador1 = LeJogada();									//O PROGRAMA ABRE O BUFFER PARA DIGITAR UMA NOVA JOGADA//
 	}	
 			
-	ImprimeCoordenada(jogadaJogador1.coordenada);								//QUANDO A JOGADA FOR VÁLIDA, O JOGO IMPRIMIRÁ ELA NA TELA ANTES DE MOSTRAR ONDE ELA ACERTOU//
+	ImprimeCoordenada(jogadaJogador1.coordenada);								//QUANDO A JOGADA FOR Vï¿½LIDA, O JOGO IMPRIMIRï¿½ ELA NA TELA ANTES DE MOSTRAR ONDE ELA ACERTOU//
 					
-	jogadaJogador1 = RealizaJogada(tabuInimigo, jogadaJogador1, tabuAuxiliar2, tabuSaida2, qJ1);  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////FUNÇÃO REALIZA JOGADA ESTÁ AQUI////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	jogadaJogador1 = RealizaJogada(tabuInimigo, jogadaJogador1, tabuAuxiliar2, tabuSaida2, qJ1);  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////FUNï¿½ï¿½O REALIZA JOGADA ESTï¿½ AQUI////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 																									
 	return jogadaJogador1;	
 }
 
 
-//Função para verificar se o jogador venceu, ou seja, se o tabuleiro de inteiros foi zerado//
+//Funï¿½ï¿½o para verificar se o jogador venceu, ou seja, se o tabuleiro de inteiros foi zerado//
 int JogadorVenceu(int tablado[10][10]){
 	
 	int x=0, y=0, cont=0;
@@ -1292,7 +1299,7 @@ int JogadorVenceu(int tablado[10][10]){
 }
 
 
-//Função para criar um arquivo com o resultado do jogo//
+//Funï¿½ï¿½o para criar um arquivo com o resultado do jogo//
 void CriaArquivoDeResultado(char nomeJogador1[], char nomeJogador2[], tJogada jogadas1[], int qtd1, tJogada jogadas2[], int qtd2, int empate, char vencedor[], FILE * file){
 	
 	int x=0;
@@ -1305,7 +1312,7 @@ void CriaArquivoDeResultado(char nomeJogador1[], char nomeJogador2[], tJogada jo
 		fprintf(file," - ");
 		
 		if(strcmp(jogadas1[x].tipo, "Agua") == 0) fprintf(file,"Agua\n");		//SE O TIRO FOR NA AGUA, ELE IMPRIME SOMENTE AGUA//		
-		else ImprimeJogadaNoArquivoResultado(jogadas1[x], file);			//CASO CONTRÁRIO ELE IMPRIME O NAVIO QUE ACERTOU E SEU ID, ALÉM DE "TIRO"//
+		else ImprimeJogadaNoArquivoResultado(jogadas1[x], file);			//CASO CONTRï¿½RIO ELE IMPRIME O NAVIO QUE ACERTOU E SEU ID, ALï¿½M DE "TIRO"//
 	}
 	
 	fprintf(file,"\n%s\n", nomeJogador2);
@@ -1325,14 +1332,14 @@ void CriaArquivoDeResultado(char nomeJogador1[], char nomeJogador2[], tJogada jo
 }
 
 
-//Função para imprimir os dados de uma jogada no arquivo resultado//
+//Funï¿½ï¿½o para imprimir os dados de uma jogada no arquivo resultado//
 void ImprimeJogadaNoArquivoResultado(tJogada jogada, FILE * file){
 	
 	fprintf(file,"%s - %s - ID %02d\n", jogada.tipo, jogada.navioAcertado, jogada.idNavioAcertado);
 }
 
 
-//Função para gerar estatísticas sobre um jogador//
+//Funï¿½ï¿½o para gerar estatï¿½sticas sobre um jogador//
 tEstatistica GeraEstatisticas(tJogada * jogada, int qJ, int qJ2, tJogada * jogadaNav, char nome[]){
 	
 	tEstatistica estatistica;
@@ -1345,10 +1352,10 @@ tEstatistica GeraEstatisticas(tJogada * jogada, int qJ, int qJ2, tJogada * jogad
 	estatistica.desvioPadrao = CalculaDesvioPadrao(estatistica.linhaMedia, estatistica.colunaMedia, jogada, qJ);
 	estatistica.qtdJogadas = qJ2;		//QTD DE JOGADAS DO JOGADOR INIMIGO NO SEU TABULEIRO//
 	strcpy(estatistica.nomeDoJogador, nome);
-																														//FUÇÃO PARA INICIALIZAR TODOS AS VARIÁVEIS DO TIPO ESTATISTICA//
+																														//FUï¿½ï¿½O PARA INICIALIZAR TODOS AS VARIï¿½VEIS DO TIPO ESTATISTICA//
 	for(x=0;x<qJ2;x++){																								
 		
-		estatistica.jogada[x] = jogadaNav[x];		//IGUALA O VETOR DE JOGADAS DO INIMIGO AO VETOR DE JOGADAS DAS ESTATÍSTICAS PARA VER OS NAVIOS DO JOGADOR QUE FORAM ACERTADOS PELO INIMIGO//
+		estatistica.jogada[x] = jogadaNav[x];		//IGUALA O VETOR DE JOGADAS DO INIMIGO AO VETOR DE JOGADAS DAS ESTATï¿½STICAS PARA VER OS NAVIOS DO JOGADOR QUE FORAM ACERTADOS PELO INIMIGO//
 		estatistica.jogada[x] = ColocaNumDaJogada(estatistica.jogada[x], x+1);
 	}
 	
@@ -1358,7 +1365,7 @@ tEstatistica GeraEstatisticas(tJogada * jogada, int qJ, int qJ2, tJogada * jogad
 }
 
 
-//Função para retornar quantos tiros foram na água//
+//Funï¿½ï¿½o para retornar quantos tiros foram na ï¿½gua//
 int ContaTirosErrados(tJogada * jogada, int qJ){
 	
 	int x=0, cont=0;
@@ -1372,7 +1379,7 @@ int ContaTirosErrados(tJogada * jogada, int qJ){
 }
 
 
-//Função para retornar quatos tiros acertaram algum navio//
+//Funï¿½ï¿½o para retornar quatos tiros acertaram algum navio//
 int ContaTirosCertos(tJogada * jogada, int qJ){
 	
 	int x=0, cont=0;
@@ -1386,7 +1393,7 @@ int ContaTirosCertos(tJogada * jogada, int qJ){
 }
 
 
-//calcula a linha média das jogadas//
+//calcula a linha mï¿½dia das jogadas//
 float CalculaMediaLinha(tJogada * jogada, int qJ){
 		
 	int x=0, linha=0;
@@ -1403,7 +1410,7 @@ float CalculaMediaLinha(tJogada * jogada, int qJ){
 }
 
 
-//Calcula a coluna média das jogadas//
+//Calcula a coluna mï¿½dia das jogadas//
 float CalculaMediaColuna(tJogada * jogada, int qJ){
 	
 	int x=0, coluna=0;
@@ -1420,7 +1427,7 @@ float CalculaMediaColuna(tJogada * jogada, int qJ){
 }
 
 
-//Calcula desvio padrão das jogadas//
+//Calcula desvio padrï¿½o das jogadas//
 float CalculaDesvioPadrao(float lm, float cm, tJogada * jogada, int qJ){
 	
 	float somatorio=0, soma=0,result=0, tli, tlc;
@@ -1442,13 +1449,13 @@ float CalculaDesvioPadrao(float lm, float cm, tJogada * jogada, int qJ){
 }
 
 
-//Organiza os navios da última parte da estatística em ordem alfabética e ordem de jogada//
+//Organiza os navios da ï¿½ltima parte da estatï¿½stica em ordem alfabï¿½tica e ordem de jogada//
 tEstatistica OrganizaNaviosEmOrdemAlfabetica(tEstatistica estatistica){
 	
 	int x=0, y=0, aux2=0;
 	tJogada aux;
 	
-	for(x=0;x<estatistica.qtdJogadas-1;x++){			//LOOP PARA COLOCAR OS NOMES EM ORDEM ALFABÉTICA//
+	for(x=0;x<estatistica.qtdJogadas-1;x++){			//LOOP PARA COLOCAR OS NOMES EM ORDEM ALFABï¿½TICA//
 		
 		for(y=x+1;y<estatistica.qtdJogadas;y++){
 			
@@ -1465,7 +1472,7 @@ tEstatistica OrganizaNaviosEmOrdemAlfabetica(tEstatistica estatistica){
 }
 
 
-//Função para saber se uma jogada é menor que a outra em ordem alfabetica e posteriormente de numero//
+//Funï¿½ï¿½o para saber se uma jogada ï¿½ menor que a outra em ordem alfabetica e posteriormente de numero//
 int EhJogada1MenorQJogada2(tJogada jogada1, tJogada jogada2){
 	
 	if(strcmp(jogada1.navioAcertado, jogada2.navioAcertado) < 0) return 1;
@@ -1478,7 +1485,7 @@ int EhJogada1MenorQJogada2(tJogada jogada1, tJogada jogada2){
 }
 
 
-//Função para imprimir os dados no arquivo de estatísticas//
+//Funï¿½ï¿½o para imprimir os dados no arquivo de estatï¿½sticas//
 void GeraArquivoEstatisticas(tEstatistica estatistica, FILE * file){
 	
 	int x=0, id=0, jog=0, y=0, ind = 0;
@@ -1492,7 +1499,7 @@ void GeraArquivoEstatisticas(tEstatistica estatistica, FILE * file){
 	
 	for(x=0;x<estatistica.qtdJogadas;x++){
 		
-		ind = 0;  //VARIÁVEL PARA INDICAR SE UM NAVIO COM O MESMO ID JÁ FOI IMPRESSO//
+		ind = 0;  //VARIï¿½VEL PARA INDICAR SE UM NAVIO COM O MESMO ID Jï¿½ FOI IMPRESSO//
 		if(TipoDaJogada(estatistica.jogada[x]) == 1){
 			
 			if(x > 0){
@@ -1513,21 +1520,21 @@ void GeraArquivoEstatisticas(tEstatistica estatistica, FILE * file){
 }
 
 
-//Função para ver se duas jogadas atingiram um navio com o mesmo ID//
+//Funï¿½ï¿½o para ver se duas jogadas atingiram um navio com o mesmo ID//
 int JogadasPossuemOMesmoNavio(tJogada jogada1, tJogada jogada2){
 	
 	return (jogada1.idNavioAcertado == jogada2.idNavioAcertado);
 }
 
 
-//Função para imprimir as jogadas que acertaram os navios no arquivo de estatísticas//
+//Funï¿½ï¿½o para imprimir as jogadas que acertaram os navios no arquivo de estatï¿½sticas//
 void ImprimeJogadaNoArquivoDeEstatistica(tJogada jogada, FILE * file){
 	
 	
 	fprintf(file,"%02d - %s - ID %02d\n", jogada.numJogada, jogada.navioAcertado, jogada.idNavioAcertado);
 }
 
-//Função para colocar o número da jogada no tipo tJogada//
+//Funï¿½ï¿½o para colocar o nï¿½mero da jogada no tipo tJogada//
 tJogada ColocaNumDaJogada(tJogada jogada, int num){
 	
 	jogada.numJogada = num;
@@ -1536,7 +1543,7 @@ tJogada ColocaNumDaJogada(tJogada jogada, int num){
 }
 
 
-//Função que retorna o tipo da jogada -> Tiro ou Agua//
+//Funï¿½ï¿½o que retorna o tipo da jogada -> Tiro ou Agua//
 int TipoDaJogada(tJogada jogada){
 	
 	if(strcmp(jogada.tipo,"Tiro") == 0) return 1;
@@ -1544,7 +1551,7 @@ int TipoDaJogada(tJogada jogada){
 }
 
 
-//Função para verificar se o usuário pediu para gerar um tabuleiro aleatório//
+//Funï¿½ï¿½o para verificar se o usuï¿½rio pediu para gerar um tabuleiro aleatï¿½rio//
 int EhParaGerarTabuleiro(char * vet, char ** argv){
 	
 	sprintf(vet,"%s", argv[1]);
@@ -1555,12 +1562,12 @@ int EhParaGerarTabuleiro(char * vet, char ** argv){
 }
 
 
-//Função para gerar tabuleiro aleatório//
-void GeraTabuleiroAleatorio(char ** argv){
+//Funï¿½ï¿½o para gerar tabuleiro aleatï¿½rio//
+void GeraTabuleiroAleatorio(char * name){
 	
 	int x=0, sentido=-1, y=0, ind=0;
 	
-	char tabuleiro[10][10];   //TABULEIRO CRIADO- optei por utilizá-lo ao invés do tipo tTabuleiro para não precisar fazer muitos acessos, além de o tipo tTabuleiro possuir muitos atributos que não precisei para esse trecho do código//
+	char tabuleiro[10][10];   //TABULEIRO CRIADO- optei por utilizï¿½-lo ao invï¿½s do tipo tTabuleiro para nï¿½o precisar fazer muitos acessos, alï¿½m de o tipo tTabuleiro possuir muitos atributos que nï¿½o precisei para esse trecho do cï¿½digo//
 	tCoordenada coordenada;
 	tNavio navio[5];        //Vetor para armazenar os 5 navios, 1 de cada tipo como inicializados abaixo//
 
@@ -1569,17 +1576,17 @@ void GeraTabuleiroAleatorio(char ** argv){
 	navio[1] = InicializaNavioComNomeEiD("Cruiser", 2);
 	navio[2] = InicializaNavioComNomeEiD("Submarine", 3);
 	navio[3] = InicializaNavioComNomeEiD("Battleship", 4);
-	navio[4] = InicializaNavioComNomeEiD("Carrier", 5);			//INICIALIZAÇÃO DE UM NAVIO DE CADA TIPO COM SEUS RESPECTIVOS ID'S//	
+	navio[4] = InicializaNavioComNomeEiD("Carrier", 5);			//INICIALIZAï¿½ï¿½O DE UM NAVIO DE CADA TIPO COM SEUS RESPECTIVOS ID'S//	
 	
 	
 	GeraTabuleiroVazio(10, 10, tabuleiro);	//GERANDO UM TABULEIRO VAZIO (apenas com 'o')//
 	
 		
-	srand(time(NULL));  //para gerar tabuleiros aleatórios a cada execução do prog//
+	srand(time(NULL));  //para gerar tabuleiros aleatï¿½rios a cada execuï¿½ï¿½o do prog//
 	
 	for(x=0;x<5;x++){
 		
-		ind = 0;	//Esta variável indica se o navio poderá ser adicionado no campo de batalha sem gerar erros, quando ela é modificada, o loop pula para o próximo navio//
+		ind = 0;	//Esta variï¿½vel indica se o navio poderï¿½ ser adicionado no campo de batalha sem gerar erros, quando ela ï¿½ modificada, o loop pula para o prï¿½ximo navio//
 		while(1){
 
 			if(ind) break;
@@ -1598,19 +1605,21 @@ void GeraTabuleiroAleatorio(char ** argv){
 	}
 		
 	FILE * tabAleFile;		//ALOCANDO UM TIPO FILE PARA O ARQUIVO DE TABULEIRO ALEATORIO A SER GERADO//
-	char diretorioTabu[1000];
-	sprintf(diretorioTabu,"%s",argv[2]);
+	// char diretorioTabu[1000];
+	// sprintf(diretorioTabu,"%s",argv[2]);
 	
-	tabAleFile = fopen(diretorioTabu,"w");
+	tabAleFile = fopen(name,"w");
 	for(y=0;y<5;y++){
 		
-		ImprimeNavioNoArquivoDeTabuleiroAleatorio(navio[y],tabAleFile);		//IMPRESSÃO DOS NAVIOS NO ARQUIVO//
+		ImprimeNavioNoArquivoDeTabuleiroAleatorio(navio[y],tabAleFile);		//IMPRESSï¿½O DOS NAVIOS NO ARQUIVO//
 		if(y != 4) fprintf(tabAleFile,"\n");
-	}		
+	}	
+
+	fclose(tabAleFile);	
 }
 
 
-//Função para gerar uma coordeada aleatória (coordenada será usada para o ponto inicial do navio//
+//Funï¿½ï¿½o para gerar uma coordeada aleatï¿½ria (coordenada serï¿½ usada para o ponto inicial do navio//
 tCoordenada GeraCoordenadaAleatoria(){
 	
 	tCoordenada coordenada;
@@ -1631,7 +1640,7 @@ tCoordenada GeraCoordenadaAleatoria(){
 }
 
 
-//Função para retornar a coordenada alfabética de acordo com o número da coordenada//
+//Funï¿½ï¿½o para retornar a coordenada alfabï¿½tica de acordo com o nï¿½mero da coordenada//
 char GeraCoordenadaAlfabetica(int num){
 	
 	if(num == 1)return 'a';
@@ -1647,7 +1656,7 @@ char GeraCoordenadaAlfabetica(int num){
 }
 
 
-//Função para gerar um sentido(0 ou 1) aleatório//
+//Funï¿½ï¿½o para gerar um sentido(0 ou 1) aleatï¿½rio//
 int GeraSentidoAleatorio(){
 	
 	int x;
@@ -1658,7 +1667,7 @@ int GeraSentidoAleatorio(){
 }
 
 
-//função para inicializar um tipo tNavio somente com o nome e o ID//
+//funï¿½ï¿½o para inicializar um tipo tNavio somente com o nome e o ID//
 tNavio InicializaNavioComNomeEiD(char * nome, int num){
 	
 	tNavio navio;
@@ -1670,7 +1679,7 @@ tNavio InicializaNavioComNomeEiD(char * nome, int num){
 }
 
 
-//Função para colocar atributos em um navio//
+//Funï¿½ï¿½o para colocar atributos em um navio//
 tNavio ColocaCoordenadaEOrientacaoNoNavio(tNavio navio, tCoordenada cord, int ori){
 	
 	navio.coordenada = cord;
@@ -1679,7 +1688,7 @@ tNavio ColocaCoordenadaEOrientacaoNoNavio(tNavio navio, tCoordenada cord, int or
 }
 
 
-//Função para adicionar apenas um navio em um campo de batalha passado como parametro//
+//Funï¿½ï¿½o para adicionar apenas um navio em um campo de batalha passado como parametro//
 void AdicionaUmNavioNoCampoDeBatalha(char tab[10][10], tNavio navio){
 	
 	int linha, coluna, direcao, tamanho, y;
@@ -1704,7 +1713,7 @@ void AdicionaUmNavioNoCampoDeBatalha(char tab[10][10], tNavio navio){
 }
 	
 	
-//Função para imprimir um navio no arquivo de tabuleiro aleatorio//	
+//Funï¿½ï¿½o para imprimir um navio no arquivo de tabuleiro aleatorio//	
 void ImprimeNavioNoArquivoDeTabuleiroAleatorio(tNavio navio, FILE * file){
 	
 	fprintf(file,"%s;%d;%d;", navio.nome, navio.ID, navio.orientacao);
@@ -1713,25 +1722,25 @@ void ImprimeNavioNoArquivoDeTabuleiroAleatorio(tNavio navio, FILE * file){
 
 
 
-//Função para imprimir coordenadas no arquivo de tabuleiro aleatorio//
+//Funï¿½ï¿½o para imprimir coordenadas no arquivo de tabuleiro aleatorio//
 void ImprimeCoordenadaNoArquivo(tCoordenada coordenada, FILE * file){
 	
 	fprintf(file,"%s",coordenada.strCord);
 }
 
 
-//Função para verificar se é possível adicionar um navio passado como parametro em um campo de batalha passado como parâmetro//
+//Funï¿½ï¿½o para verificar se ï¿½ possï¿½vel adicionar um navio passado como parametro em um campo de batalha passado como parï¿½metro//
 int EhPossivelAdicionarONavioNoTablado(char tab[10][10], tNavio navio){
 	
-	char tablado[10][10];        //aloquei uma matriz auxiliar parar tentar criar o tabuleiro dentro dela e verificar se é possível//
+	char tablado[10][10];        //aloquei uma matriz auxiliar parar tentar criar o tabuleiro dentro dela e verificar se ï¿½ possï¿½vel//
 	
-	CopiaMatriz1Na2(10, 10, tab, 10, 10, tablado);	//A MATRIZ DO PARAMETRO DA FUNÇÃO É COPIADA PARA ESTA MATRIZ A FIM DE TESTÁ-LA SEM MODIFICAR A DE ORIGEM//
+	CopiaMatriz1Na2(10, 10, tab, 10, 10, tablado);	//A MATRIZ DO PARAMETRO DA FUNï¿½ï¿½O ï¿½ COPIADA PARA ESTA MATRIZ A FIM DE TESTï¿½-LA SEM MODIFICAR A DE ORIGEM//
 	
 	int x=0, y=0;
 	int linha, coluna, direcao, tamanho;     // linha e coluna das coordenadas do ponto inicial do navio
 		
 		
-	linha = CoordenadaLinhaNavio(navio) - 1;		//lembrando que as linnhas e colunas na matriz começam com 0, diminuí 1 unidade para manuseá-las//
+	linha = CoordenadaLinhaNavio(navio) - 1;		//lembrando que as linnhas e colunas na matriz comeï¿½am com 0, diminuï¿½ 1 unidade para manuseï¿½-las//
 	coluna = CoordenadaColunaNavio(navio) - 1;
 	direcao = DirecaoNavio(navio);                  // 0 = vertical , 1 = horizontal//
 	tamanho = TamanhoNavio(navio);
@@ -1744,7 +1753,7 @@ int EhPossivelAdicionarONavioNoTablado(char tab[10][10], tNavio navio){
 		else if(tamanho == 4 && linha > 6) return 0;
 		else if(tamanho == 5 && linha > 5) return 0;
 	}
-		                                                          //CONDIÇÕES PARA O BARCO NAO EXCEDER OS LIMITES DO TABULEIRO//
+		                                                          //CONDIï¿½ï¿½ES PARA O BARCO NAO EXCEDER OS LIMITES DO TABULEIRO//
 	else if(direcao == 1){
 			
 		if(tamanho == 2 && coluna > 8) return 0;
@@ -1754,13 +1763,13 @@ int EhPossivelAdicionarONavioNoTablado(char tab[10][10], tNavio navio){
 	}
 		
 				
-	if(tablado[linha][coluna] == 'X') return 0;	//verificar se a coordenada principal do navio já está ocupada//
+	if(tablado[linha][coluna] == 'X') return 0;	//verificar se a coordenada principal do navio jï¿½ estï¿½ ocupada//
 		
 	
 	for(y=0;y<tamanho;y++){
 			
 			
-		if(y==0){  // PARA VERIFICAR SE AS CÉLULAS AO REDOR DA PRIMEIRA COORDENADA DO NAVIO JÁ POSSUEM NAVIOS //
+		if(y==0){  // PARA VERIFICAR SE AS Cï¿½LULAS AO REDOR DA PRIMEIRA COORDENADA DO NAVIO Jï¿½ POSSUEM NAVIOS //
 				
 						
 			if(coluna == 0 && linha == 0){
@@ -1790,7 +1799,7 @@ int EhPossivelAdicionarONavioNoTablado(char tab[10][10], tNavio navio){
 					tablado[linha][coluna] = 'X';
 				else return 0;
 			}
-				//ATÉ AQUI FORAM VERIFICADAS COORDENADAS NOS VÉRTICES DO TABULEIRO//
+				//ATï¿½ AQUI FORAM VERIFICADAS COORDENADAS NOS Vï¿½RTICES DO TABULEIRO//
 					
 						
 			else if(coluna == 0){
@@ -1817,17 +1826,17 @@ int EhPossivelAdicionarONavioNoTablado(char tab[10][10], tNavio navio){
 				else return 0;
 			}
 			
-			//ATÉ AQUI FORAM VERIFICADAS COORDENADAS NAS ARESTAS DOS TABULEIROS//
+			//ATï¿½ AQUI FORAM VERIFICADAS COORDENADAS NAS ARESTAS DOS TABULEIROS//
 			
 			else{
 				if(tablado[linha - 1][coluna - 1] == 'o' && tablado[linha - 1][coluna] == 'o' && tablado[linha - 1][coluna + 1] == 'o' && tablado[linha][coluna - 1] == 'o' && tablado[linha][coluna + 1] == 'o' && tablado[linha + 1][coluna - 1] == 'o' && tablado[linha + 1][coluna] == 'o' && tablado[linha + 1][coluna + 1] == 'o')
 					tablado[linha][coluna] = 'X';
 				else return 0;
 			}		
-		}       //NESSE "ELSE" FORAM VERIFICADAS AS DEMAIS POSIÇÕES//
+		}       //NESSE "ELSE" FORAM VERIFICADAS AS DEMAIS POSIï¿½ï¿½ES//
 		    
 		
-		else if(y > 0){                                       // PARA VERIFICAR SE AS CÉLULAS AO REDOR DA SEGUNDA COORDENADA OU POSTERIOR DO NAVIO JÁ POSSUEM ALGUM NAVIO (UMA VERIFICAÇÃO PARA CADA DIREÇÃO)//
+		else if(y > 0){                                       // PARA VERIFICAR SE AS Cï¿½LULAS AO REDOR DA SEGUNDA COORDENADA OU POSTERIOR DO NAVIO Jï¿½ POSSUEM ALGUM NAVIO (UMA VERIFICAï¿½ï¿½O PARA CADA DIREï¿½ï¿½O)//
 			
 			if(direcao == 0){       // VERTICAL//
 				
