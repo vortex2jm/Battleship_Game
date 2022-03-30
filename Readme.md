@@ -8,7 +8,7 @@
 
    Ex:
 
-    /home/joao/Downloads/Captura de tela de 2022-03-30 18-08-42.png
+    ![IMAGEMDIR](https://user-images.githubusercontent.com/93965248/160933217-c226c88c-b266-496e-9e76-1880477cc38b.png)
 
 
  - Third step: Now you have to execute the program. The command is *"./prog <chosen name>"*
