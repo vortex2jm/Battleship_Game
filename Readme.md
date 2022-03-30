@@ -8,14 +8,14 @@
 
    Ex:
 
- *"principal directory"*
+ *"principal directory"*.
  .
- .   *"<chosen name>"*
+ .   *"<chosen name>"*.
  .   .
- .   .      *"saida"*
+ .   .      *"saida"*.
  .   .
- .   *"battleship.c"*
- .   *"prog"*
+ .   *"battleship.c"*.
+ .   *"prog"*.
 
 
  - Third step: Now you have to execute the program. The command is *"./prog <chosen name>"*
