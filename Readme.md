@@ -11,7 +11,7 @@
     ![IMAGEMDIR](https://user-images.githubusercontent.com/93965248/160933217-c226c88c-b266-496e-9e76-1880477cc38b.png)
 
 
- - Third step: Now you have to execute the program. The command is *"./prog <chosen name>"*
+ - Third step: Now you have to execute the program. The command is *"./prog {chosen name}"*
 
  - Fourth step: If you followed all steps correctly, the game will be running on your linux command line.
 
@@ -24,7 +24,7 @@
 
  - OBS2: After the end of game, you will have statistics in *"saida"*(dir).
 
- - OBS3: The directory *"game"* can be renamed, but *"saida"* can't. If you rename *"saida"*, you have to compile file again and run program with *"./prog <chosen name>"*
+ - OBS3: The directory *"game"* can be renamed, but *"saida"* can't. If you rename *"saida"*, you have to compile file again and run program with *"./prog {chosen name}"*
 
  - OBS4: This program was my first university work in C language. It's very simple and doesn't has a lot of advanced concepts, but was very important to my learning.
 
